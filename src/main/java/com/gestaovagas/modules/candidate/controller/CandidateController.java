@@ -2,6 +2,7 @@ package com.gestaovagas.modules.candidate.controller;
 
 import com.gestaovagas.modules.candidate.CandidateEntity;
 import com.gestaovagas.modules.candidate.repository.CandidateRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +17,12 @@ public class CandidateController {
     private CandidateRepository candidateRepository;
 
     @PostMapping("/create")
-    public String create(@RequestBody CandidateEntity candidateEntity) {
-        candidateRepository.save(candidateEntity);
+    public String create(@Valid @RequestBody CandidateEntity candidateEntity) {
+        try {
+            candidateRepository.save(candidateEntity);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
 
         return "Candidate created";
     }
