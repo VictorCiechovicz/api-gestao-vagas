@@ -5,6 +5,7 @@ import com.gestaovagas.modules.candidate.repository.CandidateRepository;
 import com.gestaovagas.modules.exception.UserFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +19,19 @@ public class CandidateController {
     private CandidateRepository candidateRepository;
 
     @PostMapping("/create")
-    public void create(@Valid @RequestBody CandidateEntity candidateEntity) {
-        candidateRepository
-                .findByUsernameOrEmail(candidateEntity.getUsername(), candidateEntity.getEmail())
-                .ifPresent((user) -> {
-                    throw new UserFoundException();
-                });
-        candidateRepository.save(candidateEntity);
+    public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity candidateEntity) {
+        try {
+            candidateRepository
+                    .findByUsernameOrEmail(candidateEntity.getUsername(), candidateEntity.getEmail())
+                    .ifPresent((user) -> {
+                        throw new UserFoundException();
+                    });
+            candidateRepository.save(candidateEntity);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
 
     }
 
