@@ -2,7 +2,7 @@ package com.gestaovagas.modules.candidate.controller;
 
 import com.gestaovagas.modules.candidate.CandidateEntity;
 import com.gestaovagas.modules.candidate.repository.CandidateRepository;
-import com.gestaovagas.modules.exception.UserFoundException;
+import com.gestaovagas.modules.exception.ItemFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class CandidateController {
                     .findByUsernameOrEmail(candidateEntity.getUsername(),
                             candidateEntity.getEmail())
                     .ifPresent((user) -> {
-                        throw new UserFoundException();
+                        throw new ItemFoundException("Usuário ja existe!");
                     });
             candidateRepository.save(candidateEntity);
             return ResponseEntity.ok().build();
