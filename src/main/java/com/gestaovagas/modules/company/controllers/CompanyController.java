@@ -3,7 +3,7 @@ package com.gestaovagas.modules.company.controllers;
 
 import com.gestaovagas.modules.company.entities.CompanyEntity;
 import com.gestaovagas.modules.company.repository.CompanyRepository;
-import com.gestaovagas.modules.exception.ItemFoundException;
+import com.gestaovagas.exceptions.ItemFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

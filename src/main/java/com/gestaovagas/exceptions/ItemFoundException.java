@@ -1,4 +1,4 @@
-package com.gestaovagas.modules.exception;
+package com.gestaovagas.exceptions;
 
 
 public class ItemFoundException extends RuntimeException {

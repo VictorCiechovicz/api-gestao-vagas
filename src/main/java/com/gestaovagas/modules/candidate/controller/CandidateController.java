@@ -2,7 +2,7 @@ package com.gestaovagas.modules.candidate.controller;
 
 import com.gestaovagas.modules.candidate.CandidateEntity;
 import com.gestaovagas.modules.candidate.repository.CandidateRepository;
-import com.gestaovagas.modules.exception.ItemFoundException;
+import com.gestaovagas.exceptions.ItemFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.gestaovagas.modules.exception;
+package com.gestaovagas.exceptions;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
