@@ -3,6 +3,7 @@ package com.gestaovagas.modules.company.controllers;
 
 import com.gestaovagas.modules.company.entities.JobEntity;
 import com.gestaovagas.modules.company.repository.JobRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class JobController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Object> jobCompany(@RequestBody JobEntity jobEntity) {
+    public ResponseEntity<Object> jobCompany(@Valid @RequestBody JobEntity jobEntity) {
         try {
             jobRepository.save(jobEntity);
             return ResponseEntity.ok().body("Job cadastrado com sucesso!");

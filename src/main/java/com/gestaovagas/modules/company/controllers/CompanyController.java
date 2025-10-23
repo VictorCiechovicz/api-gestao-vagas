@@ -4,6 +4,7 @@ package com.gestaovagas.modules.company.controllers;
 import com.gestaovagas.modules.company.entities.CompanyEntity;
 import com.gestaovagas.modules.company.repository.CompanyRepository;
 import com.gestaovagas.modules.exception.ItemFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class CompanyController {
     private CompanyRepository companyRepository;
 
     @PostMapping("/create")
-    public ResponseEntity<Object> createCompany(@RequestBody CompanyEntity companyEntity) {
+    public ResponseEntity<Object> createCompany(@Valid @RequestBody CompanyEntity companyEntity) {
         try {
             companyRepository.findByUsernameOrEmail(companyEntity.getUsername(), companyEntity.getEmail())
                     .ifPresent(company -> {
