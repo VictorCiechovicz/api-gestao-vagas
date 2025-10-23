@@ -1,15 +1,16 @@
 package com.gestaovagas.modules.candidate;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.UUID;
 
-@Entity
-@Table(name = "vagas")
+@Entity(name = "vagas")
 @Data
 public class CandidateEntity {
 
@@ -19,14 +20,16 @@ public class CandidateEntity {
 
     private String name;
 
-    @Pattern(regexp = "\\S+", message = "O campo [username] não pode conter espaços")
+    @NotBlank
+    @Pattern(regexp = "\\S+", message = "O campo [username] não deve conter espaço")
     private String username;
 
-    @Length(min = 5, max = 100)
+    @Email(message = "O campo [email] deve conter um e-mail válido")
+    private String email;
+
+    @Length(min = 10, max = 100, message = "A senha deve conter entre (10) e (100) caracteres")
     private String password;
 
-    @Email(message = "O campo deve conter um e-mail válido")
-    private String email;
     private String description;
     private String curriculum;
 
