@@ -22,7 +22,8 @@ public class CandidateController {
     public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity candidateEntity) {
         try {
             candidateRepository
-                    .findByUsernameOrEmail(candidateEntity.getUsername(), candidateEntity.getEmail())
+                    .findByUsernameOrEmail(candidateEntity.getUsername(),
+                            candidateEntity.getEmail())
                     .ifPresent((user) -> {
                         throw new UserFoundException();
                     });
