@@ -2,10 +2,9 @@ package com.gestaovagas.modules.company.controllers;
 
 
 import com.gestaovagas.modules.company.entities.JobEntity;
-import com.gestaovagas.modules.company.repository.JobRepository;
+import com.gestaovagas.modules.company.services.JobService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,21 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/job")
+@RequiredArgsConstructor
 public class JobController {
 
-    @Autowired
-    private JobRepository jobRepository;
 
+    private final JobService jobService;
 
     @PostMapping("/create")
-    public ResponseEntity<Object> jobCompany(@Valid @RequestBody JobEntity jobEntity) {
-        try {
-            jobRepository.save(jobEntity);
-            return ResponseEntity.ok().body("Job cadastrado com sucesso!");
-
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public void jobCompany(@Valid @RequestBody JobEntity jobEntity) {
+        jobService.createJob(jobEntity);
 
     }
 }
