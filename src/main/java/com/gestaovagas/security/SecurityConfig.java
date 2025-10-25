@@ -14,8 +14,9 @@ public class SecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(c -> c.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/candidate/**").permitAll()
-                            .requestMatchers("/company/**").permitAll();  // rotas públicas
+                    auth.requestMatchers("/candidate/**").permitAll() // rotas públicas
+                            .requestMatchers("/company/**").permitAll() // rotas públicas
+                            .requestMatchers("/auth/**").permitAll();  // rotas públicas
                     auth.anyRequest().authenticated();
                 });
 

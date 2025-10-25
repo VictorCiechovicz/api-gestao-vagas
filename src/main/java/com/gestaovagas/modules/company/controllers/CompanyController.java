@@ -5,6 +5,7 @@ import com.gestaovagas.modules.company.entities.CompanyEntity;
 import com.gestaovagas.modules.company.services.CompanyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @PostMapping("/create")
-    public void createCompany(@Valid @RequestBody CompanyEntity companyEntity) {
-        companyService.createCompany(companyEntity);
+    public ResponseEntity<Object> createCompany(@Valid @RequestBody CompanyEntity companyEntity) {
+        return companyService.createCompany(companyEntity);
     }
 }

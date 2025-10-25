@@ -5,6 +5,7 @@ import com.gestaovagas.modules.company.entities.JobEntity;
 import com.gestaovagas.modules.company.services.JobService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class JobController {
 
-
     private final JobService jobService;
 
     @PostMapping("/create")
-    public void jobCompany(@Valid @RequestBody JobEntity jobEntity) {
-        jobService.createJob(jobEntity);
+    public ResponseEntity<Object> jobCompany(@Valid @RequestBody JobEntity jobEntity) {
+        return jobService.createJob(jobEntity);
 
     }
 }

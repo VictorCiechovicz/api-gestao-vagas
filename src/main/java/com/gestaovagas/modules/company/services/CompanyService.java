@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CompanyService {
 
-
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
-
 
     public ResponseEntity<Object> createCompany(CompanyEntity companyEntity) {
         try {
@@ -24,7 +22,7 @@ public class CompanyService {
                         throw new ItemFoundException("Compania ja existe!");
                     });
 
-            //Encodando a senha antes de salvar no banco
+            // Encodando a senha antes de salvar no banco
             var passwordEncod = passwordEncoder.encode(companyEntity.getPassword());
             companyEntity.setPassword(passwordEncod);
 
@@ -36,5 +34,4 @@ public class CompanyService {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 }
