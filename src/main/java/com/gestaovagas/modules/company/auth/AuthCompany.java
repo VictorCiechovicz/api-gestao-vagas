@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
+
 @Service
 @RequiredArgsConstructor
 public class AuthCompany {
@@ -42,6 +45,7 @@ public class AuthCompany {
 
         var token = JWT.create().withIssuer("Gestao Vagas")
                 .withSubject(company.getId().toString())
+                .withExpiresAt(Instant.now().plus(Duration.ofDays(2)))
                 .sign(algorithm);
 
         return token;
