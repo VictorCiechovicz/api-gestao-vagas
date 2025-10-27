@@ -1,7 +1,6 @@
 package com.gestaovagas.security;
 
 
-import com.gestaovagas.modules.company.repository.CompanyRepository;
 import com.gestaovagas.provider.JWTProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

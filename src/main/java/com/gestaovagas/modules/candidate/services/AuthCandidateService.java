@@ -35,23 +35,26 @@ public class AuthCandidateService {
                     throw new UsernameNotFoundException("Username/password incorrect");
                 });
 
-        var passwordMatch = passwordEncoder.matches(dto.password(), candidate.getPassword());
+        var passwordMatches = passwordEncoder
+                .matches(dto.password(), candidate.getPassword());
 
-        if (!passwordMatch) {
-            throw new BadCredentialsException("Senha inválida");
+        if (!passwordMatches) {
+            throw new BadCredentialsException("username or password incorrect");
         }
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        var expiration = Instant.now().plus(Duration.ofMinutes(10));
 
         var token = JWT.create().withIssuer("Gestao Vagas")
                 .withSubject(candidate.getId().toString())
                 .withClaim("roles", Arrays.asList("candidate"))
-                .withExpiresAt(Instant.now().plus(Duration.ofMinutes(10)))
+                .withExpiresAt(expiration)
                 .sign(algorithm);
 
 
         var authCandidateReponse = AuthCandidateResponseDTO.builder()
                 .access_token(token)
+                .expires_in(expiration.toEpochMilli())
                 .build();
 
 
@@ -59,4 +62,6 @@ public class AuthCandidateService {
 
 
     }
+
+
 }

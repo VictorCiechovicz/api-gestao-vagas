@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JWTProvider {
 
-    @Value("${sucury.token.secret}")
+    @Value("${secury.token.secret}")
     private String secretKey;
 
 
