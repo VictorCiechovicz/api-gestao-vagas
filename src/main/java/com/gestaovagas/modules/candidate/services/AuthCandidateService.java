@@ -46,7 +46,7 @@ public class AuthCandidateService {
         var token = JWT.create().withIssuer("Gestao Vagas")
                 .withSubject(candidate.getId().toString())
                 .withClaim("roles", Arrays.asList("candidate"))
-                .withExpiresAt(Instant.now().plus(Duration.ofDays(2)))
+                .withExpiresAt(Instant.now().plus(Duration.ofMinutes(10)))
                 .sign(algorithm);
 
 
