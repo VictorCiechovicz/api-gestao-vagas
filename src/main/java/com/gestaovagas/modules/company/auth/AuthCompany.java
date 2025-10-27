@@ -24,7 +24,7 @@ public class AuthCompany {
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${secury.token.secret}")
+    @Value("${security.token.secret}")
     private String secretKey;
 
     public String execute(AuthCompanyDTO dto) {

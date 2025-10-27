@@ -26,7 +26,7 @@ public class AuthCandidateService {
     private final CandidateRepository candidateRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${secury.token.secret.candidate}")
+    @Value("${security.token.secret.candidate}")
     private String secretKey;
 
     public AuthCandidateResponseDTO execute(AuthCandidateRequestDTO dto) {

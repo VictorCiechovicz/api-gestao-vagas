@@ -17,6 +17,7 @@ public class SecurityConfig {
 
 
     private final SecurityFilter securityFilter;
+    private final CandidateSecurityFilter candidateSecurityFilter;
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -27,6 +28,7 @@ public class SecurityConfig {
                             .requestMatchers("/auth/**").permitAll();  // rotas públicas
                     auth.anyRequest().authenticated();
                 })
+                .addFilterBefore(candidateSecurityFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
 
         return http.build();
