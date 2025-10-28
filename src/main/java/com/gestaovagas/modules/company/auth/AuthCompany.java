@@ -3,6 +3,7 @@ package com.gestaovagas.modules.company.auth;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.gestaovagas.modules.company.dto.AuthCompanyDTO;
+import com.gestaovagas.modules.company.dto.AuthCompanyResponseDTO;
 import com.gestaovagas.modules.company.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +29,7 @@ public class AuthCompany {
     @Value("${security.token.secret}")
     private String secretKey;
 
-    public String execute(AuthCompanyDTO dto) {
+    public AuthCompanyResponseDTO execute(AuthCompanyDTO dto) {
         var company = companyRepository.findByUsername(dto.getUsername()).orElseThrow(
                 () -> {
                     throw new UsernameNotFoundException("Username not found");
@@ -42,13 +44,22 @@ public class AuthCompany {
         }
 //se for igual gera um JWT token
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        var expirationIn = Instant.now().plus(Duration.ofHours(2));
 
         var token = JWT.create().withIssuer("Gestao Vagas")
                 .withSubject(company.getId().toString())
-                .withExpiresAt(Instant.now().plus(Duration.ofDays(2)))
+                .withExpiresAt(expirationIn)
+                .withClaim("roles", Arrays.asList("COMPANY"))
                 .sign(algorithm);
 
-        return token;
+
+        var authCompanyResponseDTO = AuthCompanyResponseDTO.builder()
+                .access_token(token)
+                .expires_in(expirationIn.toEpochMilli())
+                .build();
+
+
+        return authCompanyResponseDTO;
 
     }
 }
