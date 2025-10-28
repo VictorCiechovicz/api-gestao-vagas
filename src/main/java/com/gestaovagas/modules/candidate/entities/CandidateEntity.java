@@ -1,4 +1,4 @@
-package com.gestaovagas.modules.candidate;
+package com.gestaovagas.modules.candidate.entities;
 
 
 import jakarta.persistence.*;

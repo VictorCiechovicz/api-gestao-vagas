@@ -1,7 +1,7 @@
 package com.gestaovagas.modules.candidate.services;
 
 import com.gestaovagas.exceptions.ItemFoundException;
-import com.gestaovagas.modules.candidate.CandidateEntity;
+import com.gestaovagas.modules.candidate.entities.CandidateEntity;
 import com.gestaovagas.modules.candidate.repository.CandidateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

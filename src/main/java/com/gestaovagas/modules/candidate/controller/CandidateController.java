@@ -1,6 +1,6 @@
 package com.gestaovagas.modules.candidate.controller;
 
-import com.gestaovagas.modules.candidate.CandidateEntity;
+import com.gestaovagas.modules.candidate.entities.CandidateEntity;
 import com.gestaovagas.modules.candidate.services.CandidateService;
 import com.gestaovagas.modules.candidate.services.ProfileCandidateService;
 import jakarta.servlet.http.HttpServletRequest;

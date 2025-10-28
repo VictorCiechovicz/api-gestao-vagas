@@ -1,7 +1,7 @@
 package com.gestaovagas.module.candidate;
 
 import com.gestaovagas.exceptions.ItemFoundException;
-import com.gestaovagas.modules.candidate.CandidateEntity;
+import com.gestaovagas.modules.candidate.entities.CandidateEntity;
 import com.gestaovagas.modules.candidate.repository.CandidateRepository;
 import com.gestaovagas.modules.candidate.services.ApplyJobCandidateService;
 import com.gestaovagas.modules.company.repository.JobRepository;

@@ -1,6 +1,8 @@
 package com.gestaovagas.modules.candidate.services;
 
 import com.gestaovagas.exceptions.ItemFoundException;
+import com.gestaovagas.modules.candidate.entities.ApplyJobCandidateEntity;
+import com.gestaovagas.modules.candidate.repository.ApplyJobCandidateRepositoty;
 import com.gestaovagas.modules.candidate.repository.CandidateRepository;
 import com.gestaovagas.modules.company.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +17,22 @@ public class ApplyJobCandidateService {
 
     private final CandidateRepository candidateRepository;
     private final JobRepository jobRepository;
+    private final ApplyJobCandidateRepositoty applyJobCandidateRepositoty;
 
-    public void execute(UUID candidateId, UUID jobId) {
+
+    public ApplyJobCandidateEntity execute(UUID candidateId, UUID jobId) {
         var candidate = candidateRepository.findById(candidateId).orElseThrow(() -> new ItemFoundException("Candidate not found"));
 
         var job = jobRepository.findById(jobId).orElseThrow(() -> new ItemFoundException("Job not found"));
+
+
+        var applyJob = ApplyJobCandidateEntity.builder()
+                .candidateId(candidateId)
+                .jobId(jobId).build();
+
+        applyJob = applyJobCandidateRepositoty.save(applyJob);
+        return applyJob;
+
 
     }
 }
