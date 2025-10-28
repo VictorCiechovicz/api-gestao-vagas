@@ -2,6 +2,7 @@ package com.gestaovagas.modules.candidate.services;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.gestaovagas.exceptions.ItemFoundException;
 import com.gestaovagas.modules.candidate.dto.AuthCandidateRequestDTO;
 import com.gestaovagas.modules.candidate.dto.AuthCandidateResponseDTO;
 import com.gestaovagas.modules.candidate.repository.CandidateRepository;
@@ -9,8 +10,6 @@ import com.gestaovagas.modules.candidate.repository.CandidateRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,14 +31,14 @@ public class AuthCandidateService {
     public AuthCandidateResponseDTO execute(AuthCandidateRequestDTO dto) {
         var candidate = candidateRepository.findByUsername(dto.username())
                 .orElseThrow(() -> {
-                    throw new UsernameNotFoundException("Username/password incorrect");
+                    throw new ItemFoundException("Username/password incorrect");
                 });
 
         var passwordMatches = passwordEncoder
                 .matches(dto.password(), candidate.getPassword());
 
         if (!passwordMatches) {
-            throw new BadCredentialsException("username or password incorrect");
+            throw new ItemFoundException("Username/Password incorrect");
         }
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);

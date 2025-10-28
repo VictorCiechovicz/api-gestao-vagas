@@ -1,5 +1,6 @@
 package com.gestaovagas.modules.candidate.services;
 
+import com.gestaovagas.exceptions.ItemFoundException;
 import com.gestaovagas.modules.candidate.dto.ProfileCandidateDTO;
 import com.gestaovagas.modules.candidate.repository.CandidateRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class ProfileCandidateService {
     public ResponseEntity<Object> getCandidate(UUID id) {
         try {
             var candidate = candidateRepository.findById(id)
-                    .orElseThrow(() -> new UsernameNotFoundException("Candidate not found"));
+                    .orElseThrow(() -> new ItemFoundException("Candidate not found"));
 
             var candidateDTO = ProfileCandidateDTO.builder()
                     .email(candidate.getEmail())
