@@ -28,7 +28,7 @@ public class CandidateController {
 
 
     @GetMapping("/get")
-    @PreAuthorize("hasRole('candidate')")
+    @PreAuthorize("hasRole('CANDIDATE')")
     public ResponseEntity<Object> getCandidate(HttpServletRequest request) {
         var candidateId = request.getAttribute("candidate_id");
         return profileCandidateService.getCandidate(UUID.fromString(candidateId.toString()));
