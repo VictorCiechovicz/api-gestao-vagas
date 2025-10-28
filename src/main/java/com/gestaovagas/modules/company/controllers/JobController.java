@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class JobController {
     private final JobService jobService;
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('COMPANY')")
     public ResponseEntity<Object> jobCompany(@Valid @RequestBody JobEntity jobEntity, HttpServletRequest request) {
         var companyId = request.getAttribute("company_id");
         jobEntity.setCompanyId(UUID.fromString(companyId.toString()));

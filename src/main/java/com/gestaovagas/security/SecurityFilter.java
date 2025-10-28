@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -30,15 +31,24 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (request.getRequestURI().startsWith("/company")) {
             if (header != null) {
-                var sub = jwtProvider.validateToken(header);
+                var token = jwtProvider.validateToken(header);
 
-                if (sub.isEmpty()) {
+                if (token == null) {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     return;
                 }
-                request.setAttribute("company_id", sub);
+
+
+                var roles = token.getClaim("roles").asList(Object.class);
+
+                var grants = roles.stream()
+                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase()))
+                        .toList();
+
+
+                request.setAttribute("company_id", token.getSubject());
                 UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(sub, null, Collections.emptyList());
+                        new UsernamePasswordAuthenticationToken(token.getSubject(), null, grants);
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
 
