@@ -21,9 +21,9 @@ public class ApplyJobCandidateService {
 
 
     public ApplyJobCandidateEntity execute(UUID candidateId, UUID jobId) {
-        var candidate = candidateRepository.findById(candidateId).orElseThrow(() -> new ItemFoundException("Candidate not found"));
+        candidateRepository.findById(candidateId).orElseThrow(() -> new ItemFoundException("Candidate not found"));
 
-        var job = jobRepository.findById(jobId).orElseThrow(() -> new ItemFoundException("Job not found"));
+        jobRepository.findById(jobId).orElseThrow(() -> new ItemFoundException("Job not found"));
 
 
         var applyJob = ApplyJobCandidateEntity.builder()
