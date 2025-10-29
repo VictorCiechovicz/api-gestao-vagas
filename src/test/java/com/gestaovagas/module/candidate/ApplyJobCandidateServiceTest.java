@@ -22,6 +22,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
+//Testes Unitários
 
 @ExtendWith(MockitoExtension.class)
 public class ApplyJobCandidateServiceTest {
@@ -73,7 +74,7 @@ public class ApplyJobCandidateServiceTest {
                 .jobId(idJob).build();
 
         var applyJobCreated = ApplyJobCandidateEntity.builder().id(UUID.randomUUID()).build();
-        
+
         when(candidateRepository.findById(idCandidate)).thenReturn(Optional.of(new CandidateEntity()));
         when(jobRepository.findById(idJob)).thenReturn(Optional.of(new JobEntity()));
 
