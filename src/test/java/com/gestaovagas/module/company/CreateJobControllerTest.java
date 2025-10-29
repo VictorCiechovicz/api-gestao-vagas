@@ -1,12 +1,9 @@
 package com.gestaovagas.module.company;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gestaovagas.module.utils.TesteUtils;
+import com.gestaovagas.module.utils.TestUtils;
 import com.gestaovagas.modules.company.dto.CreateJobDTO;
-import com.gestaovagas.modules.company.services.JobService;
 import jakarta.servlet.Filter;
-import lombok.RequiredArgsConstructor;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -56,8 +53,8 @@ public class CreateJobControllerTest {
 
         var result = mvc.perform(MockMvcRequestBuilders.post("/company/job/create")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(TesteUtils.objectToJson(createdJobDTO))
-                        .header("Authorization", TesteUtils.generateToken(UUID.randomUUID()))
+                        .content(TestUtils.objectToJson(createdJobDTO))
+                        .header("Authorization", TestUtils.generateToken(UUID.randomUUID()))
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk());
 

@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.UUID;
 
-public class TesteUtils {
+public class TestUtils {
 
     public static String objectToJson(Object obj) {
         try {
