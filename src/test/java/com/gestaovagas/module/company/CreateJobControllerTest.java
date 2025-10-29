@@ -5,12 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gestaovagas.module.utils.TesteUtils;
 import com.gestaovagas.modules.company.dto.CreateJobDTO;
 import com.gestaovagas.modules.company.services.JobService;
+import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -20,6 +23,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.UUID;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CreateJobControllerTest {
@@ -28,10 +33,15 @@ public class CreateJobControllerTest {
     private MockMvc mvc;
 
     private WebApplicationContext webApplicationContext;
+    @Autowired
+    private Filter springSecurityFilterChain;
 
     @Before
     public void setup() {
-        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        mvc = MockMvcBuilders
+                .webAppContextSetup(webApplicationContext)
+                .apply(SecurityMockMvcConfigurers.springSecurity())
+                .build();
     }
 
     @Test
@@ -47,7 +57,7 @@ public class CreateJobControllerTest {
         var result = mvc.perform(MockMvcRequestBuilders.post("/company/job/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TesteUtils.objectToJson(createdJobDTO))
-                        .header("Authorization", TesteUtils.generateToken(""))
+                        .header("Authorization", TesteUtils.generateToken(UUID.randomUUID()))
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
