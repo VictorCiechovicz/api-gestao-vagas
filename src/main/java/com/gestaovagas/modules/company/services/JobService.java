@@ -2,7 +2,6 @@ package com.gestaovagas.modules.company.services;
 
 import com.gestaovagas.modules.company.entities.JobEntity;
 import com.gestaovagas.modules.company.repository.JobRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

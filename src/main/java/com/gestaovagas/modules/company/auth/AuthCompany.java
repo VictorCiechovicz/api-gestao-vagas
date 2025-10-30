@@ -6,9 +6,6 @@ import com.gestaovagas.modules.company.dto.AuthCompanyDTO;
 import com.gestaovagas.modules.company.dto.AuthCompanyResponseDTO;
 import com.gestaovagas.modules.company.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
-
-import javax.naming.AuthenticationException;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
