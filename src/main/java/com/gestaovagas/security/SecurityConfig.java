@@ -25,7 +25,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/candidate/**").permitAll() // rotas públicas
                             .requestMatchers("/company/**").permitAll() // rotas públicas
-                            .requestMatchers("/auth/**").permitAll();  // rotas públicas
+                            .requestMatchers("/auth/**").permitAll()
+                            .requestMatchers("/actuator/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .addFilterBefore(candidateSecurityFilter, BasicAuthenticationFilter.class)
